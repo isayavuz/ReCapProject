@@ -32,37 +32,47 @@ namespace ConsoleUI
             //}
 
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+            if (result.Success)
             {
-                Console.WriteLine("Id: "+car.Id);
-                Console.WriteLine("BrandName: "+car.BrandName);
-                Console.WriteLine("ColorName: "+car.ColorName);
-                Console.WriteLine("ModelYear: "+car.ModelYear);
-                Console.WriteLine("DailyPrice: "+car.DailyPrice);
-                Console.WriteLine("Description: "+car.Description);
-                Console.WriteLine("---------------------------------");
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine("Id: " + car.Id);
+                    Console.WriteLine("BrandName: " + car.BrandName);
+                    Console.WriteLine("ColorName: " + car.ColorName);
+                    Console.WriteLine("ModelYear: " + car.ModelYear);
+                    Console.WriteLine("DailyPrice: " + car.DailyPrice);
+                    Console.WriteLine("Description: " + car.Description);
+                    Console.WriteLine("---------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Bilgilendirme: " + result.Success + " " + result.Message);
             }
 
-            carManager.Delete(new Car
-            {
-                Id = 6,
-                BrandId = 47,
-                ColorId = 12,
-                ModelYear = 2019,
-                DailyPrice = 250000,
-                Description = "Mini Cooper, 4X4"
-            });
-            Console.WriteLine("Yeni Liste:");
-            foreach (var car in carManager.GetCarDetails())
-            {
-                Console.WriteLine("Id: " + car.Id);
-                Console.WriteLine("BrandName: " + car.BrandName);
-                Console.WriteLine("ColorName: " + car.ColorName);
-                Console.WriteLine("ModelYear: " + car.ModelYear);
-                Console.WriteLine("DailyPrice: " + car.DailyPrice);
-                Console.WriteLine("Description: " + car.Description);
-                Console.WriteLine("---------------------------------");
-            }
+            
+
+            //carManager.Delete(new Car
+            //{
+            //    Id = 6,
+            //    BrandId = 47,
+            //    ColorId = 12,
+            //    ModelYear = 2019,
+            //    DailyPrice = 250000,
+            //    Description = "Mini Cooper, 4X4"
+            //});
+            //Console.WriteLine("Yeni Liste:");
+            //foreach (var car in carManager.GetCarDetails())
+            //{
+            //    Console.WriteLine("Id: " + car.Id);
+            //    Console.WriteLine("BrandName: " + car.BrandName);
+            //    Console.WriteLine("ColorName: " + car.ColorName);
+            //    Console.WriteLine("ModelYear: " + car.ModelYear);
+            //    Console.WriteLine("DailyPrice: " + car.DailyPrice);
+            //    Console.WriteLine("Description: " + car.Description);
+            //    Console.WriteLine("---------------------------------");
+            //}
             Console.ReadLine();
         }
     }
